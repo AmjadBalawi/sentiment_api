@@ -1,17 +1,17 @@
-# Use the official Python image from Docker Hub
-FROM python:3.11-slim
+# Base image
+FROM python:3.11-slim as base
 
-# Set the working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the requirements file into the container
+# Copy only the requirements file first
 COPY requirements.txt .
 
-# Install the dependencies
-RUN pip install --no-cache-dir -r requirements.txt || (cat /root/.cache/pip/log/debug.log && exit 1)
+# Install dependencies
+RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of your application code into the container
+# Copy the rest of the application code
 COPY . .
 
-# Command to run your FastAPI app with Uvicorn
-CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
+# Run the application
+CMD ["uvicorn", "sentiment_api:app", "--host", "0.0.0.0", "--port", "3000"]
