@@ -14,4 +14,4 @@ RUN pip install --no-cache-dir -r requirements.txt || (cat /root/.cache/pip/log/
 COPY . .
 
 # Command to run your FastAPI app with Uvicorn
-CMD ["uvicorn", "sentiment_api:app", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8080"]
